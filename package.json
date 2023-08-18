@@ -28,6 +28,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@paralleldrive/cuid2": "^2.2.2",
+		"aws-sdk": "^2.1439.0",
 		"daisyui": "^3.5.1",
 		"lucide-svelte": "^0.268.0"
 	}

@@ -30,28 +30,25 @@
 	};
 </script>
 
-<div class="min-h-screen flex items-center justify-center flex-col">
-	<h1 class="text-3xl font-black">screen-recorder</h1>
-	<p>Share or download your recording.</p>
+<p>Share or download your recording.</p>
 
-	<div class="mt-5 flex gap-2">
-		<a href={url} download="screen-recording.webm" class="btn btn-primary">
-			<Download />
-			Download
-		</a>
-		<!-- check filesize is below 100 mb -->
-		{#if $data.size < 100000000}
-			<button class="btn" on:click={shareVideo}>
+<div class="mt-5 flex gap-2">
+	<a href={url} download="screen-recording.webm" class="btn btn-primary">
+		<Download />
+		Download
+	</a>
+	<!-- check filesize is below 100 mb -->
+	{#if $data.size < 100000000}
+		<button class="btn" on:click={shareVideo}>
+			<Link />
+			Share
+		</button>
+	{:else}
+		<div class="tooltip tooltip-bottom" data-tip="Filesize is too large to share.">
+			<button class="btn" disabled>
 				<Link />
 				Share
 			</button>
-		{:else}
-			<div class="tooltip tooltip-bottom" data-tip="Filesize is too large to share.">
-				<button class="btn" disabled>
-					<Link />
-					Share
-				</button>
-			</div>
-		{/if}
-	</div>
+		</div>
+	{/if}
 </div>
