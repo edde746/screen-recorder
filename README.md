@@ -1,38 +1,33 @@
-# create-svelte
+# screen-recorder
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Web-based screen recorder with upload to S3. Built with SvelteKit, Tailwind, DaisyUI & S3.
 
-## Creating a project
+## Demo
 
-If you're seeing this, you've probably already done this step. Congrats!
+[https://screenrec.vercel.app/](https://screenrec.vercel.app/) (recordings are deleted after 48 hours)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Features
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+- Record your screen
+- Upload & get a shareable link
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Development
 
 ```bash
-npm run dev
+git clone https://
+cd screen-recorder
+pnpm install
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+# Either run MinIO locally with the command below or use a hosted service
+docker run -d \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  -e "MINIO_ROOT_USER=changeme" \
+  -e "MINIO_ROOT_PASSWORD=changeme" \
+  -v ./recordings:/data \
+  minio/minio server /data --console-address ":9001"
+
+# At this point, copy the .env.example file to .env and fill in the values
+# Then run the following command to start the dev server
+pnpm dev
 ```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.

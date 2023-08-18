@@ -47,6 +47,7 @@ export const POST: RequestHandler = async ({ request, url }) => {
 		.promise();
 
 	return json({
+		id,
 		url: `${url.origin}/video/${id}`
 	});
 };

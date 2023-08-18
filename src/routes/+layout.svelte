@@ -6,6 +6,14 @@
 	import { flip } from 'svelte/animate';
 </script>
 
+<svelte:head>
+	<title>screen-recorder</title>
+	<meta
+		name="description"
+		content="Easy to use screen recorder for the web with sharing capabilities."
+	/>
+</svelte:head>
+
 <div class="toast">
 	{#each $toasts as toast (toast.id)}
 		<div class="alert transition-none {toast.class}" out:fade={{ duration: 200 }} animate:flip>

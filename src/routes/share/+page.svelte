@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import mediaRecorder, { data } from '$lib/mediaRecorder';
 	import { goto } from '$app/navigation';
-	import { Download, Link } from 'lucide-svelte';
+	import { Download, Link, Loader2 } from 'lucide-svelte';
 	import { addToast } from '$lib/toasts';
 
 	onMount(() => {
@@ -11,7 +11,10 @@
 
 	$: url = URL.createObjectURL($data);
 
+	let uploading = false;
 	const shareVideo = () => {
+		if (uploading) return;
+		uploading = true;
 		const formData = new FormData();
 		formData.append('file', $data);
 		fetch('/upload', {
@@ -22,10 +25,16 @@
 				res.json().then((json) => {
 					navigator.clipboard.writeText(json.url);
 					addToast('Copied link to clipboard.', 'alert-success');
+					goto(`/video/${json.id}`);
 				});
 			} else {
-				addToast('Something went wrong.', 'alert-error');
+				if (res.headers.get('content-type')?.includes('application/json'))
+					res.json().then((json) => {
+						addToast(json.error, 'alert-error');
+					});
+				else addToast('Something went wrong.', 'alert-error');
 			}
+			uploading = false;
 		});
 	};
 </script>
@@ -40,8 +49,15 @@
 	<!-- check filesize is below 100 mb -->
 	{#if $data.size < 100000000}
 		<button class="btn" on:click={shareVideo}>
-			<Link />
-			Share
+			{#if uploading}
+				<div class="animate-spin">
+					<Loader2 />
+				</div>
+				Uploading...
+			{:else}
+				<Link />
+				Share
+			{/if}
 		</button>
 	{:else}
 		<div class="tooltip tooltip-bottom" data-tip="Filesize is too large to share.">
