@@ -41,6 +41,9 @@
 
 <p>Share or download your recording.</p>
 
+<!-- svelte-ignore a11y-media-has-caption -->
+<video src={url} controls class="w-full rounded-md max-w-xl mt-5" />
+
 <div class="mt-5 flex gap-2">
 	<a href={url} download="screen-recording.webm" class="btn btn-primary">
 		<Download />

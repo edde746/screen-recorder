@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import mediaRecorder, { data } from '$lib/mediaRecorder';
+	import fixWebmDuration from 'webm-duration-fix';
 	let chunks = [] as BlobPart[];
 	let captureAudio = true;
 
@@ -19,8 +20,10 @@
 			chunks.push(e.data);
 		};
 
-		$mediaRecorder.onstop = (e) => {
-			data.set(new Blob(chunks, { type: 'video/webm' }));
+		$mediaRecorder.onstop = async (e) => {
+			const blob = new Blob(chunks, { type: 'video/webm' });
+
+			data.set(await fixWebmDuration(blob));
 			chunks = [];
 			goto('/share');
 		};
