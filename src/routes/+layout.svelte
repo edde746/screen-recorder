@@ -22,7 +22,7 @@
 	{/each}
 </div>
 
-<div class="min-h-screen flex items-center justify-center flex-col">
+<div class="min-h-screen flex items-center justify-center flex-col px-4">
 	<h1 class="text-3xl font-black">screen-recorder</h1>
 
 	<slot />

@@ -32,7 +32,7 @@
 	};
 </script>
 
-<p>Easy to use screen recorder for the web with sharing capabilities.</p>
+<p class="text-center">Easy to use screen recorder for the web with sharing capabilities.</p>
 
 <div class="mt-5">
 	{#if browser && $mediaRecorder?.state == 'recording'}
