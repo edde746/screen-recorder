@@ -16,7 +16,7 @@ Web-based screen recorder with upload to S3. Built with SvelteKit, Tailwind, Dai
 ```bash
 git clone https://
 cd screen-recorder
-pnpm install
+bun install
 
 # Either run MinIO locally with the command below or use a hosted service
 docker run -d \
@@ -29,5 +29,5 @@ docker run -d \
 
 # At this point, copy the .env.example file to .env and fill in the values
 # Then run the following command to start the dev server
-pnpm dev
+bun dev
 ```
